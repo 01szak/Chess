@@ -1,0 +1,12 @@
+          White       Black
+pawns:      ♙          ♟
+
+rooks:      ♖          ♜
+
+nights:     ♘          ♞
+
+bishops:    ♗          ♝
+
+queen:      ♕          ♛
+
+kings:      ♔          ♚

@@ -1,7 +1,7 @@
 package Models;
 
 
-public class Place {
+public class Place{
     private int rowIndex;
     private char columnIndex;
 
@@ -27,6 +27,10 @@ public class Place {
     @Override
     public String toString() {
         return columnIndex + Integer.toString(rowIndex);
+    }
+    public String toString(Piece piece){
+    char pieceSymbol = piece.getSymbol();
+    return Character.toString(pieceSymbol);
     }
 }
 
