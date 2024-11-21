@@ -4,8 +4,6 @@ import enums.Color;
 import exceptions.IllegalMoveException;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 public abstract class Piece {
 
@@ -18,7 +16,7 @@ public abstract class Piece {
 
     public abstract Place capture();
 
-    public abstract Place move(Pawn pawn,int row,char column)throws IllegalMoveException;
+    public abstract void move(Piece piece,Board board)throws IllegalMoveException;
 
     public Color getColor() {
         return color;
@@ -53,6 +51,7 @@ public abstract class Piece {
     }
 
     public Place getPlace() {
+        place.setRowIndex(place.getRowIndex() + 1 );
         return place;
     }
 

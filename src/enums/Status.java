@@ -1,5 +1,5 @@
 package enums;
 
 public enum Status {
-    ACTIVE,WHITE_WON,BLACK_WON,DRAW
+    ACTIVE,WHITE_TURN,BLACK_TURN,WHITE_WON,BLACK_WON,DRAW
 }

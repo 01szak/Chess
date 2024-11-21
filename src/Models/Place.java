@@ -1,9 +1,10 @@
 package Models;
 
 
-public class Place{
+public class Place implements Comparable<Place>{
     private int rowIndex;
     private char columnIndex;
+
 
     public Place() {
     }
@@ -26,11 +27,16 @@ public class Place{
 
     @Override
     public String toString() {
-        return columnIndex + Integer.toString(rowIndex);
+        return columnIndex + Integer.toString(rowIndex + 1);
     }
-    public String toString(Piece piece){
-    char pieceSymbol = piece.getSymbol();
-    return Character.toString(pieceSymbol);
+//    public String toString(Piece piece){
+//    char pieceSymbol = piece.getSymbol();
+//    return Character.toString(pieceSymbol);
+//    }
+
+    @Override
+    public int compareTo(Place o) {
+        return 0;
     }
 }
 
