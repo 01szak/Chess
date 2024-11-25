@@ -50,41 +50,36 @@ public class Board {
     }
 
     //initialization method
-    //i have written sth that fixes the mistakes of overriding the -1 row place after the piece but it is not a prevention as same as the method below
-    public void assignPlaceWithPieces(Piece... args) {
+    //I have written sth that fixes the mistakes of overriding the -1 row place after the piece, but it is not a prevention as same as the method below
+    public void initializeBoard(Piece... args) {
         for (int i = 0; i < args.length; i++) {
             Object[][] chessBoard = this.chessBoard;
             Piece piece = args[i];
-            Place place1 = piece.getPlace();
-            int row = place1.getRowIndex();
-            int column = columnLetters.indexOf(place1.getColumnIndex());
-            Place placeBehindPiece = piece.setPlace(place1, row - 1, place1.getColumnIndex());
-            chessBoard[row - 1][column] = placeBehindPiece;
-
+            Place place = piece.getPlace();
+            int row = place.getRowIndex() + 1;
+            int column = columnLetters.indexOf(place.getColumnIndex());
+            Place placeBehindPiece = piece.setPlace(place, row - 1, place.getColumnIndex());
+            chessBoard[row][column] = placeBehindPiece;
             chessBoard[row][column] = piece;
 
         }
 
     }
 
-    public void assignPlaceWithPieces(Piece piece, int[] moveVector) {
-        Place oldPlace = piece.getPlace();
+    public void assignPlaceWithPiece(Piece piece, int[] moveVector) {
+        Place oldPlace = piece.setPlace(new Place(),piece.getPlace().getRowIndex() + 1,piece.getPlace().getColumnIndex());
         char oldColumnIndex = oldPlace.getColumnIndex();
         int oldRow = oldPlace.getRowIndex();
-        oldPlace = piece.setPlace(oldPlace, oldRow - 1, oldColumnIndex);
 
-        chessBoard[oldRow - 1][columnLetters.indexOf(oldPlace.getColumnIndex())] = oldPlace;
+        chessBoard[oldRow][columnLetters.indexOf(oldPlace.getColumnIndex())] = oldPlace;
 
-        int newRow = moveVector[1] + oldRow - 1;
-        int column = columnLetters.indexOf(oldColumnIndex) + moveVector[0];
+        int newRow = moveVector[1] + oldRow ;
+        int column = moveVector[0] + columnLetters.indexOf(oldColumnIndex);
 
 
-        Place placeBehindPiece = piece.setPlace(new Place(), oldRow - 2, oldPlace.getColumnIndex());
-        chessBoard[oldRow - 2][column] = placeBehindPiece;
 
-        Place newPlace = new Place();
-        piece.setPlace(newPlace, newRow, oldColumnIndex);
         chessBoard[newRow][column] = piece;
+        piece.setPlace(new Place(),newRow - 1,columnLetters.get(column));
 
 
     }
@@ -92,9 +87,8 @@ public class Board {
 
     @Override
     public String toString() {
-//prints rows in desc order
-        for (int i = chessBoard.length - 1; i >= 0; i--) {
-            System.out.println(Arrays.toString(chessBoard[i]));
+        for (int row = chessBoard.length - 1; row >= 0; row--) {
+            System.out.println(Arrays.toString(chessBoard[row]));
         }
         return "";
     }

@@ -4,8 +4,9 @@ import enums.Color;
 import exceptions.IllegalMoveException;
 
 import java.util.List;
+import java.util.Scanner;
 
-public abstract class Piece {
+public abstract class Piece  {
 
     protected String name;
     protected char symbol;
@@ -13,10 +14,15 @@ public abstract class Piece {
 
     protected Color color;
     protected List<int[]> allowedMoves;
-
-    public abstract Place capture();
+    protected List<int[]> captureArea;
+public final Scanner scanner = new Scanner(System.in);
+    public abstract void capture(int[] moveVector,Board board,Piece piece);
 
     public abstract void move(Piece piece,Board board)throws IllegalMoveException;
+    public String chooseMove (){
+        System.out.println("Choose a place on which you want to put selected piece: ");
+        return  scanner.nextLine();
+    }
 
     public Color getColor() {
         return color;
@@ -51,7 +57,7 @@ public abstract class Piece {
     }
 
     public Place getPlace() {
-        place.setRowIndex(place.getRowIndex() + 1 );
+//        place.setRowIndex(place.getRowIndex() + 1 );
         return place;
     }
 

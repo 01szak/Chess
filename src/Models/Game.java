@@ -58,7 +58,7 @@ public class Game {
         allPieces.add(h_Pawn);
 
         //'xYz' is for white and 'x_Yz' is for black
-        currentBoard.assignPlaceWithPieces(
+        currentBoard.initializeBoard(
                 aPawn, bPawn,
                 cPawn, dPawn,
                 ePawn, fPawn,
