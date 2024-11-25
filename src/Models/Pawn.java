@@ -16,10 +16,12 @@ public class Pawn extends Piece {
     public Pawn() {
     }
 
-    public Pawn(Place place, char symbol, Color color) {
+    public Pawn(Place place, char symbol, Color color,Boolean isFirstMove,boolean canEnPassant) {
         this.place = place;
         this.symbol = symbol;
         this.color = color;
+        this.isFirstMove = isFirstMove;
+        this.canEnPassant = canEnPassant;
     }
 
     public final List<int[]> allowedMovesForWhite = List.of(new int[]{0, 1}, new int[]{0, 2});
@@ -33,7 +35,7 @@ public class Pawn extends Piece {
     public void move(Piece pawn, Board board) throws IllegalMoveException {
         Game game = new Game();
         game.setStatus(Status.ACTIVE);
-        setAllowedMoves(pawn);
+        setAllowedMoves((Pawn) pawn);
         setCaptureArea(pawn);
         String[] chosenMove = chooseMove().split("");
         int[] moveVector = new int[2];
@@ -50,7 +52,8 @@ public class Pawn extends Piece {
         if (!isColliding(moveVector, board, pawn) && captureArea.contains(moveVector)) {
             throw new IllegalMoveException("Illegal move");
         } else if(isColliding(moveVector, board, pawn) && captureArea.contains(moveVector)){
-            capture(moveVector, board, pawn);
+            board.assignPlaceWithPiece(pawn, moveVector);
+            setFirstMove(false);
         }else if(!isColliding(moveVector, board, pawn)) {
 
             boolean isValidMove = allowedMoves.stream()
@@ -59,16 +62,27 @@ public class Pawn extends Piece {
                 throw new IllegalMoveException("Illegal move");
             } else {
                 board.assignPlaceWithPiece(pawn, moveVector);
+                isFirstMove = false;
+
             }
         }
     }
 
 
-    private void setAllowedMoves(Piece pawn) {
-        if (pawn.getColor().equals(Color.WHITE)) {
+    private void setAllowedMoves(Pawn pawn) {
+        if (pawn.getColor().equals(Color.WHITE) && pawn.isFirstMove()) {
             this.allowedMoves = allowedMovesForWhite;
-        } else {
+        } else if(pawn.getColor().equals(Color.WHITE) && !pawn.isFirstMove()) {
+            this.allowedMoves = allowedMovesForWhite;
+            allowedMoves.remove(allowedMoves.get(1));
+
+        } else if (pawn.getColor().equals(Color.BLACK) && pawn.isFirstMove()) {
             this.allowedMoves = allowedMovesForBlack;
+
+        } else if (pawn.getColor().equals(Color.BLACK) && !pawn.isFirstMove()){
+            this.allowedMoves = allowedMovesForWhite;
+            allowedMoves.remove(allowedMoves.get(1));
+
         }
     }
 
@@ -87,16 +101,7 @@ public class Pawn extends Piece {
         board.assignPlaceWithPiece(pawn, moveVector);
     }
 
-    public Boolean isColliding(int[] moveVector, Board board,Piece piece) {
-        int xAxis = moveVector[0];
-        int yAxis = moveVector[1];
-        int newRow = piece.getPlace().getRowIndex() + yAxis + 1;
-        int newColumn = board.columnLetters.indexOf(piece.getPlace().getColumnIndex()) + xAxis;
-        if (board.getChessBoard()[newRow][newColumn].getClass().equals(piece.getClass())) {
-            return true;
-        }
-        return false;
-    }
+
 
 
     public boolean isCanEnPassant() {

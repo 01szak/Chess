@@ -2,6 +2,8 @@ package Models;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Board {
 
@@ -35,19 +37,19 @@ public class Board {
 
 
 
-    public Place getSinglePlace(int row, int column) {
+    public Object getSingleObjectFromTheChessBoard(int row, int column) {
         //idk why i have to substract 2 insted of 1 :_(
-        Object[] rowOfAChessBoard = this.chessBoard[row - 2];
-        Place singlePlace = (Place) rowOfAChessBoard[column - 1];
-        return singlePlace;
-    }
-
-    public Piece getSinglePiece(int row, int column) {
-
         Object[] rowOfAChessBoard = this.chessBoard[row - 1];
-        Piece singlePiece = (Piece) rowOfAChessBoard[column - 1];
-        return singlePiece;
+        var singleElement = rowOfAChessBoard[column ];
+        return singleElement;
     }
+
+//    public Piece getSinglePiece(int row, int column) {
+//
+//        Object[] rowOfAChessBoard = this.chessBoard[row - 1];
+//        Piece singlePiece = (Piece) rowOfAChessBoard[column - 1];
+//        return singlePiece;
+//    }
 
     //initialization method
     //I have written sth that fixes the mistakes of overriding the -1 row place after the piece, but it is not a prevention as same as the method below
@@ -56,7 +58,7 @@ public class Board {
             Object[][] chessBoard = this.chessBoard;
             Piece piece = args[i];
             Place place = piece.getPlace();
-            int row = place.getRowIndex() + 1;
+            int row = place.getRowIndex() - 1;
             int column = columnLetters.indexOf(place.getColumnIndex());
             Place placeBehindPiece = piece.setPlace(place, row - 1, place.getColumnIndex());
             chessBoard[row][column] = placeBehindPiece;
@@ -67,7 +69,8 @@ public class Board {
     }
 
     public void assignPlaceWithPiece(Piece piece, int[] moveVector) {
-        Place oldPlace = piece.setPlace(new Place(),piece.getPlace().getRowIndex() + 1,piece.getPlace().getColumnIndex());
+
+        Place oldPlace = piece.setPlace(new Place(), piece.getPlace().getRowIndex() + 1,piece.getPlace().getColumnIndex());
         char oldColumnIndex = oldPlace.getColumnIndex();
         int oldRow = oldPlace.getRowIndex();
 
@@ -76,9 +79,8 @@ public class Board {
         int newRow = moveVector[1] + oldRow ;
         int column = moveVector[0] + columnLetters.indexOf(oldColumnIndex);
 
-
-
         chessBoard[newRow][column] = piece;
+        System.out.println(piece.getColor());
         piece.setPlace(new Place(),newRow - 1,columnLetters.get(column));
 
 

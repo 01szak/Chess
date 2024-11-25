@@ -24,37 +24,37 @@ public class Game {
         this.allPieces = new ArrayList<>();
         this.currentStateOfTheGame = new HashMap<>();
         String currentStateOfTheGame = Status.ACTIVE.toString();
-        Piece aPawn = new Pawn(currentBoard.getSinglePlace(2, 1), '♙', Color.WHITE);
+        Piece aPawn = new Pawn(new Place(2,'a'), '♙', Color.WHITE,true,false);
         allPieces.add(aPawn);
-        Piece bPawn = new Pawn(currentBoard.getSinglePlace(2, 2), '♙', Color.WHITE);
+        Piece bPawn = new Pawn(new Place(2,'b'), '♙', Color.WHITE,true,false);
         allPieces.add(bPawn);
-        Piece cPawn = new Pawn(currentBoard.getSinglePlace(2, 3), '♙', Color.WHITE);
+        Piece cPawn = new Pawn(new Place(2,'c'), '♙', Color.WHITE,true,false);
         allPieces.add(cPawn);
-        Piece dPawn = new Pawn(currentBoard.getSinglePlace(2, 4), '♙', Color.WHITE);
+        Piece dPawn = new Pawn(new Place(2,'d'), '♙', Color.WHITE,true,false);
         allPieces.add(dPawn);
-        Piece ePawn = new Pawn(currentBoard.getSinglePlace(2, 5), '♙', Color.WHITE);
+        Piece ePawn = new Pawn(new Place(2,'e'), '♙', Color.WHITE,true,false);
         allPieces.add(ePawn);
-        Piece fPawn = new Pawn(currentBoard.getSinglePlace(2, 6), '♙', Color.WHITE);
+        Piece fPawn = new Pawn(new Place(2,'f'), '♙', Color.WHITE,true,false);
         allPieces.add(fPawn);
-        Piece gPawn = new Pawn(currentBoard.getSinglePlace(2, 7), '♙', Color.WHITE);
+        Piece gPawn = new Pawn(new Place(2,'g'), '♙', Color.WHITE,true,false);
         allPieces.add(gPawn);
-        Piece hPawn = new Pawn(currentBoard.getSinglePlace(2, 8), '♙', Color.WHITE);
-        allPieces.add(hPawn);
-        Piece a_Pawn = new Pawn(currentBoard.getSinglePlace(7, 1), '♟', Color.BLACK);
+        Piece hPawn = new Pawn(new Place(2,'h'), '♙', Color.WHITE,true,false);
+        allPieces.add(gPawn);
+        Piece a_Pawn = new Pawn(new Place(7,'a'), '♟', Color.BLACK,true,false);
         allPieces.add(a_Pawn);
-        Piece b_Pawn = new Pawn(currentBoard.getSinglePlace(7, 2), '♟', Color.BLACK);
+        Piece b_Pawn = new Pawn(new Place(7,'b'), '♟', Color.BLACK,true,false);
         allPieces.add(b_Pawn);
-        Piece c_Pawn = new Pawn(currentBoard.getSinglePlace(7, 3), '♟', Color.BLACK);
+        Piece c_Pawn = new Pawn(new Place(7,'c'), '♟', Color.BLACK,true,false);
         allPieces.add(c_Pawn);
-        Piece d_Pawn = new Pawn(currentBoard.getSinglePlace(7, 4), '♟', Color.BLACK);
+        Piece d_Pawn = new Pawn(new Place(7,'d'), '♟', Color.BLACK,true,false);
         allPieces.add(d_Pawn);
-        Piece e_Pawn = new Pawn(currentBoard.getSinglePlace(7, 5), '♟', Color.BLACK);
+        Piece e_Pawn = new Pawn(new Place(7,'e'), '♟', Color.BLACK,true,false);
         allPieces.add(e_Pawn);
-        Piece f_Pawn = new Pawn(currentBoard.getSinglePlace(7, 6), '♟', Color.BLACK);
+        Piece f_Pawn = new Pawn(new Place(7,'f'), '♟', Color.BLACK,true,false);
         allPieces.add(f_Pawn);
-        Piece g_Pawn = new Pawn(currentBoard.getSinglePlace(7, 7), '♟', Color.BLACK);
+        Piece g_Pawn = new Pawn(new Place(7,'g'), '♟', Color.BLACK,true,false);
         allPieces.add(g_Pawn);
-        Piece h_Pawn = new Pawn(currentBoard.getSinglePlace(7, 8), '♟', Color.BLACK);
+        Piece h_Pawn = new Pawn(new Place(7,'h'), '♟', Color.BLACK,true,false);
         allPieces.add(h_Pawn);
 
         //'xYz' is for white and 'x_Yz' is for black
@@ -84,7 +84,7 @@ public class Game {
         String[] chosenPawn = chosedPawn.split("");
         int rowOnWhichThePieceStays = Integer.parseInt(chosenPawn[1]);
         char columnOnWhichThePieceStays = chosenPawn[0].charAt(0);
-        Piece piece = currentBoard.getSinglePiece(rowOnWhichThePieceStays, currentBoard.columnLetters.indexOf(columnOnWhichThePieceStays) + 1);
+        Piece piece = (Piece)currentBoard.getSingleObjectFromTheChessBoard(rowOnWhichThePieceStays, currentBoard.columnLetters.indexOf(columnOnWhichThePieceStays));
         switch (chosedPawn.charAt(0)) {
             case ' ' -> {
             }

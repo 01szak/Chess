@@ -8,6 +8,12 @@ public class Place implements Comparable<Place>{
 
     public Place() {
     }
+
+    public Place(int rowIndex, char columnIndex) {
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
+    }
+
     public int getRowIndex() {
         return rowIndex;
 
