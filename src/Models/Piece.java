@@ -23,7 +23,16 @@ public final Scanner scanner = new Scanner(System.in);
         System.out.println("Choose a place on which you want to put selected piece: ");
         return  scanner.nextLine();
     }
-
+    public Boolean isColliding(int[] moveVector, Board board,Piece piece) {
+        int xAxis = moveVector[0];
+        int yAxis = moveVector[1];
+        int newRow = piece.getPlace().getRowIndex() + yAxis + 1;
+        int newColumn = board.columnLetters.indexOf(piece.getPlace().getColumnIndex()) + xAxis;
+        if (board.getChessBoard()[newRow][newColumn].getClass().equals(piece.getClass())) {
+            return true;
+        }
+        return false;
+    }
     public Color getColor() {
         return color;
     }
@@ -57,7 +66,6 @@ public final Scanner scanner = new Scanner(System.in);
     }
 
     public Place getPlace() {
-//        place.setRowIndex(place.getRowIndex() + 1 );
         return place;
     }
 
